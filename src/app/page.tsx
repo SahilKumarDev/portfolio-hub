@@ -1,5 +1,4 @@
-import { TheamToggler } from "@/components/TheamToggler";
-import { Button } from "@/components/ui/button";
+import HeroSection from "@/components/HeroPage";
 import React from "react";
 
 const AppPage = () => {
@@ -7,10 +6,7 @@ const AppPage = () => {
     <>
       <div className="background-gradient" />
 
-      <div className="w-full h-screen flex justify-center items-center gap-4">
-        <Button>Started Project</Button>
-        <TheamToggler />
-      </div>
+      <HeroSection />
     </>
   );
 };
