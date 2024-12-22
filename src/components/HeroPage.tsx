@@ -16,7 +16,7 @@ const HeroSection = () => {
           <h4>Discover New Portfolios Weekly</h4>
         </Badge>
         <div>
-          <h1 className="font-orbit-max text-3xl lg:text-7xl font-extrabold">
+          <h1 className="font-orbit-max text-3xl lg:text-7xl font-extrabold text-center md:text-left">
             Discover Exceptional Portfolios from Creative Professionals
             Worldwide
           </h1>
@@ -28,7 +28,7 @@ const HeroSection = () => {
           </p>
         </div>
         <div className="gap-y-3 flex flex-col lg:flex-row gap-x-4">
-          <Link href={"/portfolios"}>
+          <Link href={"/portfolios"} className="w-full md:w-fit">
             <Button className="text-lg font-orbit-max py-5 w-full">
               Browse Portfolios
             </Button>
@@ -36,6 +36,7 @@ const HeroSection = () => {
           <Link
             target="_blank"
             href={"https://github.com/SahilKumarDev/portfolio-hub"}
+            className="w-full md:w-fit"
           >
             <Button
               variant={"outline"}
