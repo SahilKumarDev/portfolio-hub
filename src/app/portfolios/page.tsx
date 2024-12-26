@@ -1,9 +1,13 @@
-import React from 'react'
+import UserList from "@/components/FetchPortfolio";
+import React from "react";
 
 const PortfolioPage = () => {
   return (
-    <div>PortfolioPage</div>
-  )
-}
+    <div>
+      <div>Portfolio</div>
+      <UserList />
+    </div>
+  );
+};
 
-export default PortfolioPage
+export default PortfolioPage;
