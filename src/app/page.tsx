@@ -1,5 +1,7 @@
-import HeroSection from "@/components/HeroPage";
+// import NewPortfolio from "@/components/_components/NewPortfolio";
+// import HeroSection from "@/components/HeroPage";
 // import TopPortfolio from "@/components/TopPortfolio";
+import PortfolioUpload from "@/components/PortfolioUpload";
 import React from "react";
 
 const AppPage = () => {
@@ -7,7 +9,11 @@ const AppPage = () => {
     <>
       <div className="background-gradient" />
 
-      <HeroSection />
+      <PortfolioUpload />
+
+      {/* <HeroSection /> */}
+
+      {/* <NewPortfolio /> */}
 
       {/* <section className="px-4 lg:px-8 pb-10 mt-14">
         <TopPortfolio />

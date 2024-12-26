@@ -1,5 +1,5 @@
-import { IPortfolio } from "@/types/portfolio.type";
 import mongoose, { Schema } from "mongoose";
+import { IPortfolio } from "@/types/portfolio.type";
 
 const PortfolioSchema = new Schema<IPortfolio>(
   {
@@ -29,9 +29,24 @@ const PortfolioSchema = new Schema<IPortfolio>(
       maxlength: [50, "Owner name cannot be more than 50 characters"],
     },
     portfolioImage: {
-      type: String,
-      required: [true, "Portfolio image is required"],
-      trim: true,
+      url: {
+        type: String,
+        required: true,
+      },
+      publicId: {
+        type: String,
+        required: true,
+      },
+    },
+    portfolioOwnerImage: {
+      url: {
+        type: String,
+        required: true,
+      },
+      publicId: {
+        type: String,
+        required: true,
+      },
     },
     type: {
       type: String,
