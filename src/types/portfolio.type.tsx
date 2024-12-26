@@ -16,7 +16,7 @@ export interface ImageUploadProps {
   value: string[];
   maxSize?: number;
   label: string;
-  htmlFor: string;
+  imageName: string;
 }
 
 export interface CloudinaryConfig {

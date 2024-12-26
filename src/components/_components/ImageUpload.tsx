@@ -9,13 +9,14 @@ import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
 export function ImageUpload({
   disabled,
   label,
   onChange,
   onRemove,
-  htmlFor,
+  imageName,
   value,
   maxSize = 5,
 }: ImageUploadProps) {
@@ -117,7 +118,6 @@ export function ImageUpload({
 
   return (
     <div className="w-full space-y-1">
-      <Label htmlFor={htmlFor}>{label}</Label>
       {value && value.length > 0 ? (
         <div className="mb-4 flex items-center gap-4 flex-wrap">
           {value.map((url) => (
@@ -131,7 +131,6 @@ export function ImageUpload({
                 alt="Upload"
                 className="object-cover"
                 sizes="(max-width: 208px) 100vw, 208px"
-                id={htmlFor}
               />
               <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Button
@@ -158,20 +157,21 @@ export function ImageUpload({
               )}%`}</p>
             </div>
           ) : (
-            <label className="h-full flex flex-col items-center justify-center cursor-pointer">
+            <Label className="h-full flex flex-col items-center justify-center cursor-pointer">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <ImagePlus className="h-8 w-8 text-gray-500 mb-2" />
-                <p className="text-sm text-gray-500">Click to upload</p>
+                <p className="text-sm text-gray-500">Click to upload {label}</p>
                 <p className="text-xs text-gray-400 mt-1">{`Max size: ${maxSize}MB`}</p>
               </div>
-              <input
+              <Input
+                name={imageName}
                 type="file"
                 className="hidden"
                 onChange={onUpload}
                 accept="image/*"
                 disabled={isLoading || disabled}
               />
-            </label>
+            </Label>
           )}
         </div>
       )}

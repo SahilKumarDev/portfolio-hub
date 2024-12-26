@@ -1,8 +1,8 @@
+"use client";
+
 import React, { useState } from "react";
- 
- 
 import { IPortfolio } from "@/types/portfolio.type";
-import ImageUpload from "./ImageUpload";
+import { ImageUpload } from "./ImageUpload";
 
 interface PortfolioFormProps {
   onSubmit: (data: IPortfolio) => Promise<void>;
@@ -22,6 +22,13 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
     type: initialData?.type || "personal",
   });
 
+  const [portfolioImages, setPortfolioImages] = useState<string[]>(
+    initialData?.portfolioImage ? [initialData.portfolioImage] : []
+  );
+  const [ownerImages, setOwnerImages] = useState<string[]>(
+    initialData?.portfolioOwnerImage ? [initialData.portfolioOwnerImage] : []
+  );
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,7 +45,11 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
     setLoading(true);
 
     try {
-      await onSubmit(formData);
+      await onSubmit({
+        ...formData,
+        portfolioImage: portfolioImages[0] || "",
+        portfolioOwnerImage: ownerImages[0] || "",
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -46,8 +57,27 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
     }
   };
 
+  const handlePortfolioImageAdd = (url: string) => {
+    setPortfolioImages([url]); // Assuming single image for portfolio
+  };
+
+  const handlePortfolioImageRemove = (url: string) => {
+    setPortfolioImages((prev) => prev.filter((image) => image !== url));
+  };
+
+  const handleOwnerImageAdd = (url: string) => {
+    setOwnerImages([url]); // Assuming single image for owner
+  };
+
+  const handleOwnerImageRemove = (url: string) => {
+    setOwnerImages((prev) => prev.filter((image) => image !== url));
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto p-6">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 max-w-2xl mx-auto p-6 bg-transparent"
+    >
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Portfolio Name
@@ -108,21 +138,26 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
         </select>
       </div>
 
-      <ImageUpload
-        onImageUpload={(url: string) =>
-          setFormData((prev) => ({ ...prev, portfolioOwnerImage: url }))
-        }
-        label="Owner Image"
-        currentImage={formData.portfolioOwnerImage}
-      />
+      <div className="p-6"></div>
 
-      <ImageUpload
-        onImageUpload={(url: string) =>
-          setFormData((prev) => ({ ...prev, portfolioImage: url }))
-        }
-        label="Portfolio Image"
-        currentImage={formData.portfolioImage}
-      />
+      <div className="p-6 flex ">
+        <ImageUpload
+          imageName="portfolioImage"
+          onRemove={handlePortfolioImageRemove}
+          onChange={handlePortfolioImageAdd}
+          label="Portfolio"
+          value={portfolioImages}
+          maxSize={1}
+        />
+        <ImageUpload
+          imageName="portfolioOwnerImage"
+          onRemove={handleOwnerImageRemove}
+          onChange={handleOwnerImageAdd}
+          label="Owner"
+          value={ownerImages}
+          maxSize={1}
+        />
+      </div>
 
       {error && <div className="text-red-600 text-sm">{error}</div>}
 

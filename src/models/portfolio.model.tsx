@@ -29,24 +29,12 @@ const PortfolioSchema = new Schema<IPortfolio>(
       maxlength: [50, "Owner name cannot be more than 50 characters"],
     },
     portfolioImage: {
-      url: {
-        type: String,
-        required: true,
-      },
-      publicId: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: [true, 'Portfolio image is required'], // Ensure a descriptive error message
     },
     portfolioOwnerImage: {
-      url: {
-        type: String,
-        required: true,
-      },
-      publicId: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: [true, 'Portfolio owner image is required'],
     },
     type: {
       type: String,

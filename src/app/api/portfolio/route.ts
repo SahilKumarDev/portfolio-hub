@@ -1,4 +1,3 @@
-import { uploadToCloudinary } from "@/lib/cloudinary";
 import { Portfolio } from "@/models/portfolio.model";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
@@ -9,27 +8,44 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    // Upload image to Cloudinary
-    const { secure_url, public_id } = await uploadToCloudinary(
-      body.portfolioImage,
-      "portfolios"
-    );
+    const {
+      portfolioName,
+      portfolioLink,
+      portfolioOwnerName,
+      type,
+      portfolioImage,
+      portfolioOwnerImage,
+    } = body;
 
-    // Create portfolio with Cloudinary image data
+    if (
+      !portfolioName ||
+      !portfolioLink ||
+      !portfolioOwnerName ||
+      !type ||
+      !portfolioImage ||
+      !portfolioOwnerImage
+    ) {
+      return NextResponse.json(
+        { error: "All fields are required, including image URLs" },
+        { status: 400 }
+      );
+    }
+
     const portfolio = await Portfolio.create({
-      ...body,
-      portfolioImage: {
-        url: secure_url,
-        publicId: public_id,
-      },
-      portfolioOwnerImage: {
-        url: secure_url,
-        publicId: public_id,
-      },
+      portfolioName,
+      portfolioLink,
+      portfolioOwnerName,
+      type,
+      portfolioImage,
+      portfolioOwnerImage,
     });
 
     return NextResponse.json(portfolio, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+  } catch (error) {
+    console.error("Error creating portfolio:", error);
+    return NextResponse.json(
+      { error: "Failed to create portfolio" },
+      { status: 500 }
+    );
   }
 }
