@@ -13,19 +13,9 @@ import {
 } from "@/components/ui/tooltip";
 import BlurFade from "./ui/blur-fade";
 import { FaGithub } from "react-icons/fa6";
+import { IPortfolio } from "@/types/portfolio.type";
 
-export const PortfolioBox = ({
-  imageUrl,
-  title,
-  link, 
-  createrDetails,
-}: {
-  imageUrl: string;
-  title: string;
-  link: string; 
-  createrDetails: { img: string; name: string };
-  idx: number;
-}) => (
+export const PortfolioCard = ({ data }: { data: IPortfolio }) => (
   <BlurFade inView className="bg-transparent">
     <ShineBorder
       borderRadius={10}
@@ -33,14 +23,14 @@ export const PortfolioBox = ({
       color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
     >
       <Card className="bg-neutral-800">
-        <Link href={link} target="_blank" rel="noreferrer">
+        <Link href={data.portfolioLink} target="_blank" rel="noreferrer">
           <CardContent className="px-4 pb-2">
             <Image
               width={200}
               height={200}
               className="w-full h-56 object-cover rounded-b-lg bg-[#FFFFFF]"
-              src={imageUrl}
-              alt={`${title} project preview`}
+              src={data.portfolioImage}
+              alt={`${data.portfolioName} project preview`}
             />
           </CardContent>
         </Link>
@@ -55,15 +45,15 @@ export const PortfolioBox = ({
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{createrDetails.name || "Sahil Kumar Dev"}</p>
+                    <p>{data.portfolioName || "Sahil Kumar Dev"}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <CardTitle className="text-gray-200 text-xl font-medium line-clamp-1">
-                {title}
+                {data.portfolioName || "Sahil Kumar Dev"}
               </CardTitle>
             </div>
-            <Link href={link} target="_blank" rel="noreferrer">
+            <Link href={data.portfolioLink} target="_blank" rel="noreferrer">
               <Button className="group text-light-chai" variant="link">
                 Live
                 <ArrowRight

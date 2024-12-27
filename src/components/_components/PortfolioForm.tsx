@@ -58,7 +58,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
   };
 
   const handlePortfolioImageAdd = (url: string) => {
-    setPortfolioImages([url]); // Assuming single image for portfolio
+    setPortfolioImages([url]);
   };
 
   const handlePortfolioImageRemove = (url: string) => {
@@ -66,7 +66,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
   };
 
   const handleOwnerImageAdd = (url: string) => {
-    setOwnerImages([url]); // Assuming single image for owner
+    setOwnerImages([url]);
   };
 
   const handleOwnerImageRemove = (url: string) => {

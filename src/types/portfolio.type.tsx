@@ -9,6 +9,13 @@ export interface IPortfolio {
   updatedAt?: Date;
 }
 
+// Query Params for fetching portfolios
+export interface QueryParams {
+  type?: string;
+  limit: number;
+  page: number;
+}
+
 export interface ImageUploadProps {
   disabled?: boolean;
   onChange: (value: string) => void;
